@@ -1,9 +1,9 @@
-package bigo;
+package util;
 
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class Helper {
+public class ArrayUtil {
 	/*
 	 * create an array of random integers of length 'len' and 
 	 * values bounded by 'bound'
@@ -29,5 +29,24 @@ public class Helper {
 		}
 		
 		return true;
+	}
+	
+	/*
+	 * shuffle the elements of the array
+	 */
+	public static void shuffleArray (int[] arr) {
+		
+		//used to randomly generate an index in the range of array indices
+		Random random = new Random ();
+		
+		for (int i = 0; i < arr.length; i++) {
+			//randomly generate an index in the range of array indices
+			int shuffleIndex = random.nextInt(arr.length);
+			
+			//swap the element at index i with the element at index shuffleIndex
+			int temp = arr[i];
+			arr[i] = arr[shuffleIndex];
+			arr[shuffleIndex] = temp;
+		}
 	}
 }
