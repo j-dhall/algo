@@ -4,45 +4,45 @@ import util.ArrayUtil;
 
 public class BinarySearchTree {
 
-	class Node {
-		int val;
-		Node leftChild;
-		Node rightChild;
+	class BinaryTreeNode {
+		int data;
+		BinaryTreeNode left;
+		BinaryTreeNode right;
 		
 		//node constructor
-		Node (int val) {
-			this.val = val;
+		BinaryTreeNode (int val) {
+			this.data = val;
 		}
 		
 		//add node
 		void addNode (int val) {
-			if (val <= this.val) { //add node to the left subtree
-				if (leftChild != null) {
-					leftChild.addNode(val); //traverse down the left child
+			if (val <= this.data) { //add node to the left subtree
+				if (left != null) {
+					left.addNode(val); //traverse down the left child
 				} else {
-					leftChild = new Node (val); //create a left child
+					left = new BinaryTreeNode (val); //create a left child
 				}
 			} else { //add node to the right subtree
-				if (rightChild != null) {
-					rightChild.addNode(val); //traverse down the right child
+				if (right != null) {
+					right.addNode(val); //traverse down the right child
 				} else {
-					rightChild = new Node (val); //create a right child
+					right = new BinaryTreeNode (val); //create a right child
 				}
 			}
 		} //Node.addNode ()
 		
 		int[] inOrder () {
-			int[] thisVal = {this.val}; //convert val to integer array
+			int[] thisVal = {this.data}; //convert val to integer array
 			int[] leftVals = null, rightVals = null; //values from the left and right subtrees
 			
 			//traverse the left subtree
-			if (leftChild != null) {
-				leftVals = leftChild.inOrder();
+			if (left != null) {
+				leftVals = left.inOrder();
 			}
 			
 			//traverse the right subtree
-			if (rightChild != null) {
-				rightVals = rightChild.inOrder();
+			if (right != null) {
+				rightVals = right.inOrder();
 			}
 			
 			int[] leftAndThis = ArrayUtil.concatArrays(leftVals, thisVal);
@@ -51,17 +51,17 @@ public class BinarySearchTree {
 		} //Node.inOrder ()
 		
 		int[] preOrder () {
-			int[] thisVal = {this.val}; //convert val to integer array
+			int[] thisVal = {this.data}; //convert val to integer array
 			int[] leftVals = null, rightVals = null; //values from the left and right subtrees
 			
 			//traverse the left subtree
-			if (leftChild != null) {
-				leftVals = leftChild.preOrder();
+			if (left != null) {
+				leftVals = left.preOrder();
 			}
 			
 			//traverse the right subtree
-			if (rightChild != null) {
-				rightVals = rightChild.preOrder();
+			if (right != null) {
+				rightVals = right.preOrder();
 			}
 			
 			int[] thisAndLeft = ArrayUtil.concatArrays(thisVal, leftVals);
@@ -70,17 +70,17 @@ public class BinarySearchTree {
 		} //Node.preOrder ()
 		
 		int[] postOrder () {
-			int[] thisVal = {this.val}; //convert val to integer array
+			int[] thisVal = {this.data}; //convert val to integer array
 			int[] leftVals = null, rightVals = null; //values from the left and right subtrees
 			
 			//traverse the left subtree
-			if (leftChild != null) {
-				leftVals = leftChild.postOrder();
+			if (left != null) {
+				leftVals = left.postOrder();
 			}
 			
 			//traverse the right subtree
-			if (rightChild != null) {
-				rightVals = rightChild.postOrder();
+			if (right != null) {
+				rightVals = right.postOrder();
 			}
 			
 			int[] leftAndRight = ArrayUtil.concatArrays(leftVals, rightVals);
@@ -90,9 +90,9 @@ public class BinarySearchTree {
 
 	} //class Node
 	
-	private Node root;
+	private BinaryTreeNode root;
 	
-	Node getRoot () {
+	BinaryTreeNode getRoot () {
 		return root;
 	}
 	
@@ -100,7 +100,7 @@ public class BinarySearchTree {
 
 		//if this is the first node of the tree
 		if (root == null) {
-			root = new Node (val);
+			root = new BinaryTreeNode (val);
 			return;
 		}
 		
@@ -111,7 +111,7 @@ public class BinarySearchTree {
 	void addNodes (int[] vals) {
 		//if this is the first node of the tree
 		if (root == null) {
-			root = new Node (vals[0]);
+			root = new BinaryTreeNode (vals[0]);
 			
 			//add the non-root nodes
 			for (int i = 1; i < vals.length; i++) {
@@ -152,7 +152,57 @@ public class BinarySearchTree {
 		return root.postOrder();
 	}
 	
-	int[] postOrder (Node n) {
-		return null;
+	//for educative.io
+	
+	public static int[] inOrder (BinaryTreeNode node) {
+		int[] thisVal = {node.data}; //convert val to integer array
+		int[] leftVals = null, rightVals = null; //values from the left and right subtrees
+		
+		//traverse the left subtree
+		if (node.left != null) {
+			leftVals = inOrder(node.left);
+		}
+		
+		//traverse the right subtree
+		if (node.right != null) {
+			rightVals = inOrder(node.right);
+		}
+		
+		int[] leftAndThis = ArrayUtil.concatArrays(leftVals, thisVal);
+		return ArrayUtil.concatArrays(leftAndThis, rightVals);
+		
+	} //static inOrder ()
+	
+	//for educative.io
+	
+	public static boolean areIdentical (BinaryTreeNode root1, BinaryTreeNode root2) {
+		
+		if (root1 == null) {
+			if (root2 == null) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		if (root2 == null) {
+			return false;
+		}
+		
+		int[] nodeValsRoot1 = inOrder(root1);
+		int[] nodeValsRoot2 = inOrder(root2);
+		
+		//compare number of nodes
+		if (nodeValsRoot1.length != nodeValsRoot2.length) {
+			return false;
+		}
+		
+		for (int i = 0; i < nodeValsRoot1.length; i++) {
+			if (nodeValsRoot1[i] != nodeValsRoot2[i]) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
+
 }
