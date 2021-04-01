@@ -2,6 +2,8 @@ package bigo;
 
 import org.joda.time.LocalTime;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class HelloWorld {
 	public static void main (String[] args) {
@@ -24,5 +26,17 @@ public class HelloWorld {
 		String s2 = s.concat (" World!!");
 		System.out.println(s2.toCharArray());
 		System.out.println(Arrays.toString(strs));
+		
+		Set<String> items = new HashSet<String> ();
+		items.add("Apple");
+		Set<String> otherItems = new HashSet<String> ();
+		otherItems.add("Orange");
+		otherItems.add("Banana");
+		items.addAll(otherItems);
+		Set<String> otherLimitedItems = new HashSet<String> ();
+		otherLimitedItems.addAll(items);
+		otherLimitedItems.remove("Orange");
+		
+		System.out.println("Dummy");
 	}
 }
