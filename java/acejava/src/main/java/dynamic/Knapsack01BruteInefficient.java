@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class Knapsack01 {
+public class Knapsack01BruteInefficient {
 
 	//used to keep a map of item name to its weight and profit
 	//this class plays the value role in the name-value map 
@@ -28,7 +28,7 @@ public class Knapsack01 {
 	}
 
 	//constructor
-	public Knapsack01 () {
+	public Knapsack01BruteInefficient () {
 		itemsWP = new HashMap<String, WeightProfit> ();
 	}
 	

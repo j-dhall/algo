@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-class Knapsack01Test {
+class Knapsack01BruteInefficientTest {
 	
 	private String[] items = {"Apple", "Orange", "Banana", "Melon"};
 	private int[] weights = {2, 3, 1, 4};
@@ -22,11 +22,11 @@ class Knapsack01Test {
 
 	@Test
 	void testAddItems() {
-		Knapsack01 sack = new Knapsack01(); //create an instance of Knapsack
+		Knapsack01BruteInefficient sack = new Knapsack01BruteInefficient(); //create an instance of Knapsack
 		sack.addItems(items, weights, profits); //add items along with their weights and profits
 		
 		//get map of item names to their (weight, profit)
-		Map<String, Knapsack01.WeightProfit> itemsWP = sack.getItemsWP();
+		Map<String, Knapsack01BruteInefficient.WeightProfit> itemsWP = sack.getItemsWP();
 		
 		for (int i = 0; i < items.length; i++) {
 			String item = items[i]; //get the item name
@@ -40,7 +40,7 @@ class Knapsack01Test {
 	
 	@Test
 	void testKnapsackNonDynamic() {
-		Knapsack01 sack = new Knapsack01(); //create an instance of Knapsack
+		Knapsack01BruteInefficient sack = new Knapsack01BruteInefficient(); //create an instance of Knapsack
 		sack.addItems(items, weights, profits); //add items along with their weights and profits
 		
 		//prepare set of items to begin with
@@ -49,7 +49,7 @@ class Knapsack01Test {
 			itemsSet.add(item);
 		}
 
-		Knapsack01.SetProfit profitableSet = sack.knapsackNonDynamic(balance, null, itemsSet);
+		Knapsack01BruteInefficient.SetProfit profitableSet = sack.knapsackNonDynamic(balance, null, itemsSet);
 		
 		//we got a feasible and optimal solution
 		if (!profitableSet.items.isEmpty()) {

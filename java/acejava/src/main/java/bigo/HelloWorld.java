@@ -37,6 +37,8 @@ public class HelloWorld {
 		otherLimitedItems.addAll(items);
 		otherLimitedItems.remove("Orange");
 		
+		System.out.println(Integer.toString(7));
+		
 		System.out.println("Dummy");
 	}
 }
