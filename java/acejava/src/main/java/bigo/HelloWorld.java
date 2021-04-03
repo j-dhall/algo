@@ -39,6 +39,8 @@ public class HelloWorld {
 		
 		System.out.println(Integer.toString(7));
 		
+		System.out.println(Math.max(2,3));
+		
 		System.out.println("Dummy");
 	}
 }
