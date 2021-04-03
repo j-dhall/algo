@@ -24,6 +24,7 @@ class Knapsack01BruteTest {
 		for (int[] capPro: capacitiesProfits) {
 			SetProfit profitableSet = knapsack01.knapsack(profits, weights, capPro[0]);
 			assertEquals(capPro[1], profitableSet.totalProfit);
+			System.out.printf("Number of steps: %d\n", knapsack01.steps);
 		}
 	}
 
