@@ -34,7 +34,7 @@ public class BlockingQueueMultithreaded<T> {
 	public synchronized void enqueue (T item) throws InterruptedException {
 
 		//wait if queue is full
-		while (size == capacity) {
+		if (size == capacity) { //changed from 'while' to 'if'
 			wait();
 		}
 		
