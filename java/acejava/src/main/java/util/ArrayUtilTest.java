@@ -29,6 +29,19 @@ class ArrayUtilTest {
 			assert (arr[i] < bound); //assert bounded values
 		}
 	}
+	
+	@Test
+	void testGetIntArraySorted() {
+		//get a sorted array
+		int[] arrLocal = ArrayUtil.getIntArraySorted(len, bound);
+		assertEquals(len, arrLocal.length); //assert length
+		//assert bounded values
+		for (int i = 0; i < len; i++) {
+			assert (arrLocal[i] < bound); //assert bounded values
+		}
+		//assert sorted
+		assertTrue(ArrayUtil.isArraySorted(arrLocal));
+	}
 
 	@Test
 	void testIsArraySorted() {

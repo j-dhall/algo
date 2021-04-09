@@ -1,5 +1,6 @@
 package util;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -17,6 +18,12 @@ public class ArrayUtil {
 		IntStream.range(0, len)
 		.forEach(i -> arr[i] = random.nextInt(bound));
 
+		return arr;
+	}
+	
+	public static int[] getIntArraySorted (int len, int bound) {
+		int[] arr = getIntArray (len, bound); //get the array
+		Arrays.sort(arr); //sort the array
 		return arr;
 	}
 	
