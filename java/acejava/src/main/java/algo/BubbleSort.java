@@ -20,7 +20,7 @@ public class BubbleSort {
 		
 		//loop from 1st to second last element
 		for (int i = 0; i < items.length - 1; i++) {
-			//System.out.printf("Iter %d: %s\n", i+1, Arrays.toString(items));
+			System.out.printf("Iter %d: %s\n", i+1, Arrays.toString(items));
 			//loop from 0 till last but i element
 			for (int j = 1; j < items.length - i; j++) {
 				//if item at (j-1)-th location is greater than the item at j-th location,

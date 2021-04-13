@@ -23,9 +23,9 @@ class InsertionSortTest {
 	@Test
 	void testSort() {
 		InsertionSort sorter = new InsertionSort();
-		//System.out.printf("Before: %s\n", Arrays.toString(items));
+		System.out.printf("Before: %s\n", Arrays.toString(items));
 		sorter.sort(items);
-		//System.out.printf("After:  %s\n", Arrays.toString(items));
+		System.out.printf("After:  %s\n", Arrays.toString(items));
 		for (int i = 0; i < items.length - 1; i++) {
 			assertTrue(items[i] <= items[i+1]);
 		}

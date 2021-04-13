@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class SelectionSort {
 	public void sort (int[] items) {
 		for (int i = 0; i < items.length - 1; i++) { //from first to last but 1
-			//System.out.printf("Iter %d: %s\n", i+1, Arrays.toString(items));
+			System.out.printf("Iter %d: %s\n", i+1, Arrays.toString(items));
 			//find the minimum in the items starting from i till end
 			//consider item at index i to be the minimum to begin with
 			int minIdx = i;
