@@ -11,7 +11,7 @@ import util.ArrayUtil;
 
 class BinarySearchTreeTest {
 	
-	private int[] nodeVals;
+	private int[] nodeVals = {25,20,10,5,12,22,36,30,28,40,38,48};
 	private BinarySearchTree tree;
 	private int[] nodeValsFixed = {15, 85, 6, 38, 13, 70};
 	private int[] nodeValsInOrder = {6, 13, 15, 38, 70, 85};
@@ -23,7 +23,7 @@ class BinarySearchTreeTest {
 		//create an array of random node values to populate the tree
 		int len = 6;
 		int bound = 100;
-		nodeVals = ArrayUtil.getIntArray(len, bound);
+		//nodeVals = ;//ArrayUtil.getIntArray(len, bound);
 		
 		//create a tree
 		tree = new BinarySearchTree();
@@ -52,6 +52,17 @@ class BinarySearchTreeTest {
 	@Test
 	void testInOrder() {
 		int[] inOrderNodeVals = tree.inOrder(); //traverse in-order
+		
+		assertEquals(nodeVals.length, inOrderNodeVals.length); //assert node count
+		//assert node order
+		for (int i = 0; i < inOrderNodeVals.length - 1; i++) {
+			assert(inOrderNodeVals[i] <= inOrderNodeVals[i+1]);
+		}
+	}
+	
+	@Test
+	void testInOrderIterative() {
+		int[] inOrderNodeVals = tree.inOrderIterative();
 		
 		assertEquals(nodeVals.length, inOrderNodeVals.length); //assert node count
 		//assert node order

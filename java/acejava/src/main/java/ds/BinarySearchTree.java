@@ -1,5 +1,8 @@
 package ds;
 
+import java.util.Iterator;
+import java.util.Stack;
+
 import util.ArrayUtil;
 
 public class BinarySearchTree {
@@ -88,9 +91,15 @@ public class BinarySearchTree {
 			
 		} //Node.postOrder ()
 
-	} //class Node
+	} //class BinaryTreeNode
 	
 	private BinaryTreeNode root;
+	private int numNodes;
+	
+	public BinarySearchTree() {
+		root = null;
+		numNodes = 0;
+	}
 	
 	BinaryTreeNode getRoot () {
 		return root;
@@ -101,11 +110,13 @@ public class BinarySearchTree {
 		//if this is the first node of the tree
 		if (root == null) {
 			root = new BinaryTreeNode (val);
+			numNodes++; //increment the node count
 			return;
 		}
 		
 		//if we already have a root, add the node to the root subtree
 		root.addNode(val);
+		numNodes++; //increment the node count
 	}
 	
 	void addNodes (int[] vals) {
@@ -123,6 +134,8 @@ public class BinarySearchTree {
 				root.addNode(val);
 			}
 		}
+		
+		numNodes += vals.length; //increment the node count
 	}
 	
 	int[] inOrder () {
@@ -132,6 +145,46 @@ public class BinarySearchTree {
 		}
 		
 		return root.inOrder();
+	}
+	
+	void pushLeftChildren (Stack<BinaryTreeNode> stack, BinaryTreeNode node) {
+		while (node != null) {
+			stack.push(node);
+			node = node.left;
+		}
+	}
+	
+	int[] inOrderIterative () {
+		//if the tree is empty
+		if (root == null) {
+			return null;
+		}
+		
+		int[] nodeVals = new int[numNodes];
+		int i = 0;
+		
+		Stack<BinaryTreeNode> stack = new Stack<BinarySearchTree.BinaryTreeNode>(); //create a stack
+		pushLeftChildren(stack, root); //from the root, go left till the leaf, pushing all nodes on the stack
+		BinaryTreeNode popNode = stack.pop();
+		while (popNode != null) {
+			
+			System.out.printf("Node: %d\n", popNode.data);
+			nodeVals[i] = popNode.data; //extract the current node value
+			i++; //increment the node index
+			
+			//if the popped node has a right child, push its left children onto the stack
+			if (popNode.right != null) {
+				pushLeftChildren(stack, popNode.right);
+			}
+			//pop the left-most leaf of the right child, if any
+			if (!stack.isEmpty()) {
+				popNode = stack.pop();
+			} else {
+				popNode = null;
+			}
+		}
+		
+		return nodeVals;
 	}
 	
 	int[] preOrder () {
@@ -204,5 +257,33 @@ public class BinarySearchTree {
 		
 		return true;
 	}
+	
+	//for educative.io
 
+	class InorderIterator {
+		
+		Stack<BinaryTreeNode> stack = new Stack<BinarySearchTree.BinaryTreeNode>(); //create a stack
+
+		public InorderIterator(BinaryTreeNode root) {
+			pushLeftChildren(stack, root); //from the root, go left till the leaf, pushing all nodes on the stack
+		}
+
+		public boolean hasNext() {
+			if (!stack.isEmpty()) {
+				return true;
+			}
+			return false;
+		}
+
+		public BinaryTreeNode getNext() {
+			BinaryTreeNode popNode = stack.pop();
+
+			//if the popped node has a right child, push its left children onto the stack
+			if (popNode.right != null) {
+				pushLeftChildren(stack, popNode.right);
+			}
+			
+			return popNode;
+		}
+	}
 }
