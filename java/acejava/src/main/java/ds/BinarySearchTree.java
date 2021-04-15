@@ -259,6 +259,7 @@ public class BinarySearchTree {
 	}
 	
 	//for educative.io
+	//no test code
 
 	class InorderIterator {
 		
@@ -284,6 +285,48 @@ public class BinarySearchTree {
 			}
 			
 			return popNode;
+		}
+	}
+	
+	//for educative.io
+	//no test code
+	
+	public static class InorderSuccessor {
+		
+		BinaryTreeNode succ = null;
+		
+		public BinaryTreeNode inorderSuccessorBST (BinaryTreeNode root, int d) {
+			//go left
+			if (d < root.data) {
+				if (succ == null) {
+					succ = root;
+				} else {
+					if (root.data > d && root.data < succ.data) {
+						succ = root;
+					} else {
+						System.out.printf("We do have this case. Root: %d; Succ: %d", root.data, succ.data);
+					}
+				}
+				return inorderSuccessorBST(root.left, d);
+			} else if (d > root.data) { //go right
+				return inorderSuccessorBST(root.right, d);
+			} else { //found d
+				//if d (root) has no right child, 'succ' now has the successor
+				if (root.right == null) {
+					return succ;
+				}
+				
+				//if d (root) has a right child, successor is the left-most child of the right subtree
+				succ = root.right;
+				BinaryTreeNode rightLeast = root.right;
+				
+				while (rightLeast != null) {
+					succ = rightLeast;
+					rightLeast = rightLeast.left;
+				}
+				
+				return succ;
+			}
 		}
 	}
 }

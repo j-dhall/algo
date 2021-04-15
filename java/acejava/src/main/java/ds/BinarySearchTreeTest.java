@@ -11,6 +11,7 @@ import util.ArrayUtil;
 
 class BinarySearchTreeTest {
 	
+	//{100,50,200,25,75,125,350};//
 	private int[] nodeVals = {25,20,10,5,12,22,36,30,28,40,38,48};
 	private BinarySearchTree tree;
 	private int[] nodeValsFixed = {15, 85, 6, 38, 13, 70};
@@ -93,4 +94,17 @@ class BinarySearchTreeTest {
 		assertArrayEquals(this.nodeValsPostOrder, postOrderNodeVals); //assert node order
 	}
 
+	@Test
+	void testInorderSuccessor() {
+		for (int predVal : nodeVals) {
+			//int predVal = 5;
+			BinarySearchTree.InorderSuccessor objSucc = new BinarySearchTree.InorderSuccessor();
+			BinarySearchTree.BinaryTreeNode succ = objSucc.inorderSuccessorBST(tree.getRoot(), predVal);
+			if (succ != null) {
+				System.out.printf("Predessor: %d; Successor: %d\n", predVal, succ.data);
+			} else {
+				System.out.printf("Predessor: %d; Successor: NULL\n", predVal);
+			}
+		}
+	}
 }

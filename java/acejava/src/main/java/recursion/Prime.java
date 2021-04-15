@@ -17,6 +17,6 @@ public class Prime {
 		
 		//continue checking recursively for primality with a lower number
 		//i-1 is the next lower number to check if that number divides num
-		return isPrime (num, i-1);		
+		return isPrime (num, i-1);
 	}
 }
