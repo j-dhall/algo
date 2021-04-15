@@ -107,4 +107,18 @@ class BinarySearchTreeTest {
 			}
 		}
 	}
+	
+	@Test
+	void testInorderSuccessorBSTUsingParent() {
+		for (int predVal : nodeVals) {
+			//int predVal = 5;
+			BinarySearchTree.InorderSuccessor objSucc = new BinarySearchTree.InorderSuccessor();
+			BinarySearchTree.BinaryTreeNode succ = objSucc.inorderSuccessorBSTUsingParent(tree.getRoot(), predVal);
+			if (succ != null) {
+				System.out.printf("Predessor: %d; Successor: %d\n", predVal, succ.data);
+			} else {
+				System.out.printf("Predessor: %d; Successor: NULL\n", predVal);
+			}
+		}
+	}
 }

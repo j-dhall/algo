@@ -11,10 +11,12 @@ public class BinarySearchTree {
 		int data;
 		BinaryTreeNode left;
 		BinaryTreeNode right;
+		BinaryTreeNode parent;
 		
 		//node constructor
-		BinaryTreeNode (int val) {
+		BinaryTreeNode (int val, BinaryTreeNode parent) {
 			this.data = val;
+			this.parent = parent;
 		}
 		
 		//add node
@@ -23,13 +25,13 @@ public class BinarySearchTree {
 				if (left != null) {
 					left.addNode(val); //traverse down the left child
 				} else {
-					left = new BinaryTreeNode (val); //create a left child
+					left = new BinaryTreeNode (val, this); //create a left child
 				}
 			} else { //add node to the right subtree
 				if (right != null) {
 					right.addNode(val); //traverse down the right child
 				} else {
-					right = new BinaryTreeNode (val); //create a right child
+					right = new BinaryTreeNode (val, this); //create a right child
 				}
 			}
 		} //Node.addNode ()
@@ -109,7 +111,7 @@ public class BinarySearchTree {
 
 		//if this is the first node of the tree
 		if (root == null) {
-			root = new BinaryTreeNode (val);
+			root = new BinaryTreeNode (val, null);
 			numNodes++; //increment the node count
 			return;
 		}
@@ -122,7 +124,7 @@ public class BinarySearchTree {
 	void addNodes (int[] vals) {
 		//if this is the first node of the tree
 		if (root == null) {
-			root = new BinaryTreeNode (vals[0]);
+			root = new BinaryTreeNode (vals[0], null);
 			
 			//add the non-root nodes
 			for (int i = 1; i < vals.length; i++) {
@@ -327,6 +329,49 @@ public class BinarySearchTree {
 				
 				return succ;
 			}
+		}
+		
+		public BinaryTreeNode inorderSuccessorBSTUsingParent (BinaryTreeNode root, int d) {
+
+			//traverse down to find d
+			while (d != root.data) {
+				if (d < root.data) {
+					root = root.left;
+				} else if (d > root.data) {
+					root = root.right;
+				}
+			}
+			
+			//we found d
+				
+			//if d (root) has a right child
+			if (root.right != null) {
+				root = root.right;
+				while (root.left != null) {
+					root = root.left;
+				}
+				return root;
+			} else {
+				//go up the parent hierarchy and
+				//find a node which is a left child of its parent.
+				//the parent is the successor
+				BinaryTreeNode parent = root.parent;
+				while (parent != null) {
+					if (parent.left == root) {
+						//we found a node which is a left child of its parent
+						return parent;
+					} else {
+						//keep moving up
+						root = parent;
+						parent = root.parent;
+					}
+				}
+				
+				//we did not find any successor
+				//this happens if d is the last node
+				return null;
+			}
+
 		}
 	}
 }
