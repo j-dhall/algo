@@ -3,10 +3,12 @@ package ds;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ds.BinarySearchTree.TreeNode;
 import util.ArrayUtil;
 
 class BinarySearchTreeTest {
@@ -136,5 +138,30 @@ class BinarySearchTreeTest {
 		String strlevelledNodesComputed = tree.levelOrderTraversal(tree.getRoot());
 		System.out.printf("%s\n", strlevelledNodesComputed);
 		assertEquals(strlevelledNodes, strlevelledNodesComputed);
+	}
+	
+	//ReverseLevelOrderTraversal
+	@Test
+	void testReverseLevelOrderTraversal() {
+		BinarySearchTree.ReverseLevelOrderTraversal obj = new BinarySearchTree.ReverseLevelOrderTraversal();
+		
+		TreeNode root = new TreeNode(12);
+	    root.left = new TreeNode(7);
+	    root.right = new TreeNode(1);
+	    root.left.left = new TreeNode(9);
+	    root.right.left = new TreeNode(10);
+	    root.right.right = new TreeNode(5);
+		
+		
+		List<List<Integer>> result = obj.traverse(root);
+		int levels = result.size();
+		for (List<Integer> levelNodes: result) {
+			System.out.printf("Level %d: ", levels);
+			levels--;
+			for (Integer i: levelNodes) {
+				System.out.printf("%d ", i);
+			}
+			System.out.println();
+		}
 	}
 }

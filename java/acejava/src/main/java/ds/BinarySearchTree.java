@@ -1,7 +1,9 @@
 package ds;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -404,4 +406,57 @@ public class BinarySearchTree {
 		
 		return levelledNodes;
 	}
+	
+	public static class TreeNode {
+		int val;
+		TreeNode left;
+		TreeNode right;
+		
+		TreeNode (int x) {
+			val = x;
+		}
+	}
+	
+	public static class ReverseLevelOrderTraversal {
+		public List<List<Integer>> traverse (TreeNode root) {
+			Stack<List<Integer>> resultStack = new Stack<List<Integer>> ();
+			
+			//stack the levels while traversing breadth-wise deeper
+			List<TreeNode> levelA = new LinkedList<TreeNode>();
+			List<TreeNode> levelB = new LinkedList<TreeNode>();
+			
+			levelA.add(root); //fill a level with root
+			//while we have any level nodes
+			while (!levelA.isEmpty()) {
+				
+				//copy child nodes to another level list
+				for (TreeNode parentNode: levelA) {
+					if (parentNode.left != null) {
+						levelB.add(parentNode.left);
+					}
+					if (parentNode.right != null) {
+						levelB.add(parentNode.right);
+					}
+				}
+				
+				//copy parent level list to result
+				List<Integer> levelAVals = new LinkedList<Integer>();
+				for (TreeNode node: levelA) {
+					levelAVals.add(node.val);
+				}
+				resultStack.push(levelAVals);					
+				
+				//move parent and child list deeper
+				levelA = levelB;
+				levelB = new LinkedList<TreeNode>();
+			}
+			
+			List<List<Integer>> result = new LinkedList<List<Integer>> ();
+			while (!resultStack.isEmpty()) {
+				result.add(resultStack.pop());
+			}
+			return result;
+		}
+	}
+
 }
