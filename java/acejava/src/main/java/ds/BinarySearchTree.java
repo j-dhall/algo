@@ -1,6 +1,8 @@
 package ds;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 import util.ArrayUtil;
@@ -373,5 +375,33 @@ public class BinarySearchTree {
 			}
 
 		}
+	}
+	
+	public String levelOrderTraversal (BinaryTreeNode root) {
+		//queue the children during breadth-first traversal
+		Queue<BinaryTreeNode> queue = new LinkedList<BinaryTreeNode> ();
+		queue.add(root); //begin by adding root to the queue
+		
+		//levelled nodes
+		String levelledNodes = new String();
+		
+		while (!queue.isEmpty()) {
+			BinaryTreeNode node = queue.remove(); //dequeue the front node
+			//enqueue its children (if any)
+			if (node.left != null) {
+				queue.add(node.left);
+			}
+			if (node.right != null) {
+				queue.add(node.right);
+			}
+			levelledNodes = levelledNodes.concat(Integer.toString(node.data) + " ");
+		}
+		
+		//removing the trailing space
+		if (!levelledNodes.isEmpty()) {
+			levelledNodes = levelledNodes.stripTrailing();
+		}
+		
+		return levelledNodes;
 	}
 }

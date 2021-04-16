@@ -13,6 +13,7 @@ class BinarySearchTreeTest {
 	
 	//{100,50,200,25,75,125,350};//
 	private int[] nodeVals = {25,20,10,5,12,22,36,30,28,40,38,48};
+	private int[] levelledNodes = {25,20,36,10,22,30,40,5,12,28,38,48};
 	private BinarySearchTree tree;
 	private int[] nodeValsFixed = {15, 85, 6, 38, 13, 70};
 	private int[] nodeValsInOrder = {6, 13, 15, 38, 70, 85};
@@ -120,5 +121,20 @@ class BinarySearchTreeTest {
 				System.out.printf("Predessor: %d; Successor: NULL\n", predVal);
 			}
 		}
+	}
+	
+	@Test
+	void testLevelOrderTraversal() {
+		String strlevelledNodes = Arrays.toString(levelledNodes);
+		strlevelledNodes = strlevelledNodes.replace(',', ' ');
+		strlevelledNodes = strlevelledNodes.replace('[', ' ');
+		strlevelledNodes = strlevelledNodes.replace(']', ' ');
+		//https://stackoverflow.com/questions/2932392/java-how-to-replace-2-or-more-spaces-with-single-space-in-string-and-delete-lead#:~:text=replaceAll(%22%5C%5Cs%7B,quicker%20as%20someone%20pointed%20out).&text=This%20will%20match%20more%20than%20one%20space.
+		strlevelledNodes = strlevelledNodes.replaceAll("\\s{2,}", " ").trim();
+		System.out.printf("%s\n", strlevelledNodes);
+		
+		String strlevelledNodesComputed = tree.levelOrderTraversal(tree.getRoot());
+		System.out.printf("%s\n", strlevelledNodesComputed);
+		assertEquals(strlevelledNodes, strlevelledNodesComputed);
 	}
 }
