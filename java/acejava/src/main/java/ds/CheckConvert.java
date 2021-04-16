@@ -37,6 +37,54 @@ public class CheckConvert {
 			idxParentItem = (idxItem - 1) / 2;
 		}
 	}
+
+	int getLeftChild(int idxNode) {
+		int idxLeftChild = 2 * idxNode + 1;
+		
+		//indicate (by returning an invalid index) that there is no child node
+		if (idxLeftChild >= lenMinHeap) {
+			return -1;
+		}
+		
+		return idxLeftChild;
+	}
+	
+	//MISTAKE: incorrect algo assuming median is 1st element of last row
+	//and average (in case of even number of items) is to be taken with the last item in the second-last row
+	//This is not true: try different orders of entering (1,3,4,5), sometimes last row has 4, sometimes 5.
+	//Averaging either 4 and 5, or 5 and 3. All wrong.
+	double findMedian() {
+		//if heap is empty
+		if (lenMinHeap == 0) {
+			throw new IndexOutOfBoundsException("ERROR: findMedian(): Trying to find median of an empty heap.");
+		}
+		
+		int idxLeftChildFound = 0;
+		int idxLeftChildProbe = getLeftChild(idxLeftChildFound);
+		while (idxLeftChildProbe != -1) {
+			idxLeftChildFound = idxLeftChildProbe;
+			idxLeftChildProbe = getLeftChild(idxLeftChildFound);
+		}
+		if (lenMinHeap % 2 == 0) {
+			//we have even number of items
+			//average the left-most child with the previous item
+			return ((double)(minHeap[idxLeftChildFound-1] + minHeap[idxLeftChildFound]))/2;
+		} else {
+			//we have odd number of items
+			return minHeap[idxLeftChildFound];
+		}
+	}
+	
+	public static void findMedianStatic() {
+		CheckConvert obj = new CheckConvert(10);
+		obj.insert(3);
+		obj.insert(1);
+		System.out.println(obj.findMedian());
+		obj.insert(5);
+		System.out.println(obj.findMedian());
+		obj.insert(4);
+		System.out.println(obj.findMedian());
+	}
 	
 	int heapify(int idxNode) {
 		//indicate (by returning an invalid index) that no more heapify needed
