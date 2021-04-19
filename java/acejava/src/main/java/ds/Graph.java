@@ -18,7 +18,7 @@ public class Graph{
         this.adjacencyList[source].insertAtEnd(destination);
 
         //for undirected graph uncomment the line below
-        //this.adjacencyList[destination].insertAtEnd(source);
+        this.adjacencyList[destination].insertAtEnd(source);
     }
     public void printGraph()
     {
