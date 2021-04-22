@@ -53,7 +53,7 @@ public class CountingSemaphore {
             @Override
             public void run() {
                 try {
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 10; i++) {
                         cs.acquire();
                         System.out.println("Ping " + i);
                     }
@@ -70,7 +70,7 @@ public class CountingSemaphore {
                 for (int i = 0; i < 5; i++) {
                     try {
                         cs.release();
-                        System.out.println("Pong " + i);
+                        System.out.println("Thread 2: Pong " + i);
                     } catch (InterruptedException ie) {
 
                     }
@@ -78,12 +78,29 @@ public class CountingSemaphore {
             }
         });
 
+//        Thread t3 = new Thread(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                for (int i = 0; i < 5; i++) {
+//                    try {
+//                        cs.release();
+//                        System.out.println("Thread 3: Pong " + i);
+//                    } catch (InterruptedException ie) {
+//
+//                    }
+//                }
+//            }
+//        });        
+        
         t1.start();
         Thread.sleep(10);
         t2.start();
+        //t3.start();
         
         
         t1.join();
         t2.join();
+        //t3.join();
 	}
 }
